@@ -41,5 +41,15 @@ public class DeptServiceImpl implements DeptService {
         return deptMapper.getById(id);
     }
 
+    @Override
+    public void update(Dept dept) {
+
+        //1.補全基礎屬性-updateTime
+        dept.setUpdateTime(LocalDateTime.now());
+
+        //2.調用Mapper接口方法更新
+        deptMapper.update(dept);
+    }
+
 
 }

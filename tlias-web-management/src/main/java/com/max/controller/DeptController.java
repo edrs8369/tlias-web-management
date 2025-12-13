@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@RequestMapping("/depts")
 @RestController
 public class DeptController {
 
@@ -15,7 +16,7 @@ public class DeptController {
     private DeptService deptService;
 
     //查詢所有部門信息
-    @GetMapping("/depts")
+    @GetMapping
     public Result list() {
         System.out.println("查詢全部的部門數據");
 
@@ -24,7 +25,7 @@ public class DeptController {
     }
 
     //刪除指定id部門
-    @DeleteMapping("/depts")
+    @DeleteMapping
     public Result delete(@RequestParam("id") Integer deptId) {
         System.out.println("刪除部門，id=" + deptId);
         deptService.deleteById(deptId);
@@ -32,7 +33,7 @@ public class DeptController {
     }
 
     //新增部門
-    @PostMapping("/depts")
+    @PostMapping
     public Result add(@RequestBody Dept dept){
         System.out.println("添加部門: " + dept);
         deptService.add(dept);
@@ -40,10 +41,19 @@ public class DeptController {
     }
 
     //根據ID查詢部門
-    @GetMapping("/depts/{id}")
+    @GetMapping("/{id}")
     public Result getInfo(@PathVariable Integer id){
         System.out.println("根據id查詢部門 : " + id);
         Dept dept = deptService.getById(id);
         return Result.success(dept);
+    }
+
+    //修改部門
+    @PutMapping
+    public Result update(@RequestBody Dept dept){
+
+        System.out.println("修改部門: " + dept);
+        deptService.update(dept);
+        return Result.success();
     }
 }
