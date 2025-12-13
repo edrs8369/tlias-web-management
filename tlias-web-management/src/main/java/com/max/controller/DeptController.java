@@ -4,10 +4,7 @@ import com.max.pojo.Dept;
 import com.max.pojo.Result;
 import com.max.service.DeptService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -29,6 +26,13 @@ public class DeptController {
     public Result delete(@RequestParam("id") Integer deptId) {
         System.out.println("刪除部門，id=" + deptId);
         deptService.deleteById(deptId);
+        return Result.success();
+    }
+
+    @PostMapping("/depts")
+    public Result add(@RequestBody Dept dept){
+        System.out.println("添加部門: " + dept);
+        deptService.add(dept);
         return Result.success();
     }
 }
