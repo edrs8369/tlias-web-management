@@ -1,0 +1,15 @@
+spring:
+  application:
+    name: tlias-web-management
+
+#配置數據庫的連接訊息
+  datasource:
+    url: jdbc:mysql://localhost:3306/tlias
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: 1234
+
+#MyBatis的相關配置
+mybatis:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
