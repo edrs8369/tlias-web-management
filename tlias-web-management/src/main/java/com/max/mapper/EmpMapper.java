@@ -5,6 +5,7 @@ import com.max.pojo.Emp;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 
+import java.time.LocalDate;
 import java.util.List;
 
 //員工信息
@@ -27,7 +28,7 @@ public interface EmpMapper {
 
 
     // 普通的分頁查詢語句
-    @Select("select emp.*, dept.name deptName from emp left join dept on emp.dept_id = dept.id " +
-            "order by emp.update_time desc")
-    List<Emp> list();
+    //@Select("select emp.*, dept.name deptName from emp left join dept on emp.dept_id = dept.id " +
+            //"order by emp.update_time desc")
+    List<Emp> list(String name, Integer gender, LocalDate begin, LocalDate end);
 }
