@@ -1,6 +1,7 @@
 package com.max.controller;
 
 import com.max.pojo.Emp;
+import com.max.pojo.EmpQueryParam;
 import com.max.pojo.PageResult;
 import com.max.pojo.Result;
 import com.max.service.EmpService;
@@ -24,15 +25,23 @@ public class EmpController {
     private EmpService empService;
 
     //分頁查詢
+//    @GetMapping
+//    public Result page(@RequestParam(defaultValue = "1") Integer page,
+//                       @RequestParam(defaultValue = "10") Integer pageSize,
+//                       @RequestParam(required = false) String name,
+//                       @RequestParam(required = false) Integer gender,
+//                       @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate begin,
+//                       @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate end){
+//        log.info("分頁查詢: {},{},{},{},{},{}", page, pageSize, name, gender, begin, end);
+//        PageResult<Emp> pageResult = empService.page(page, pageSize, name, gender, begin, end);
+//        return Result.success(pageResult);
+//    }
+
     @GetMapping
-    public Result page(@RequestParam(defaultValue = "1") Integer page,
-                       @RequestParam(defaultValue = "10") Integer pageSize,
-                       @RequestParam(required = false) String name,
-                       @RequestParam(required = false) Integer gender,
-                       @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate begin,
-                       @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate end){
-        log.info("分頁查詢: {},{},{},{},{},{}", page, pageSize, name, gender, begin, end);
-        PageResult<Emp> pageResult = empService.page(page, pageSize, name, gender, begin, end);
+    public Result page(EmpQueryParam empQueryParam){
+
+        log.info("分頁查詢: {}", empQueryParam);
+        PageResult<Emp> pageResult = empService.page(empQueryParam);
         return Result.success(pageResult);
     }
 }

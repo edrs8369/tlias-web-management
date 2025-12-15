@@ -2,6 +2,7 @@ package com.max.mapper;
 
 
 import com.max.pojo.Emp;
+import com.max.pojo.EmpQueryParam;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 
@@ -30,5 +31,9 @@ public interface EmpMapper {
     // 普通的分頁查詢語句
     //@Select("select emp.*, dept.name deptName from emp left join dept on emp.dept_id = dept.id " +
             //"order by emp.update_time desc")
-    List<Emp> list(String name, Integer gender, LocalDate begin, LocalDate end);
+
+    // 條件查詢員工信息
+    // MyBatis 會把對象當作一個 屬性集合 來解析。
+    // XML 中可以直接用 #{屬性名} 來取值，例如：
+    List<Emp> list(EmpQueryParam empQueryParam);
 }
