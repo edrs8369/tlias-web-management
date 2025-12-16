@@ -3,7 +3,9 @@ package com.max.mapper;
 
 import com.max.pojo.Emp;
 import com.max.pojo.EmpQueryParam;
+import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Options;
 import org.apache.ibatis.annotations.Select;
 
 import java.time.LocalDate;
@@ -13,6 +15,23 @@ import java.util.List;
 @Mapper
 public interface EmpMapper {
 
+
+    // 普通的分頁查詢語句
+    //@Select("select emp.*, dept.name deptName from emp left join dept on emp.dept_id = dept.id " +
+    //"order by emp.update_time desc")
+
+    // 條件查詢員工信息
+    // MyBatis 會把對象當作一個 屬性集合 來解析。
+    // XML 中可以直接用 #{屬性名} 來取值，例如：
+    List<Emp> list(EmpQueryParam empQueryParam);
+
+    // 新增員工信息
+    //獲取數據庫自增的主鍵，用keyProperty 來指定要回傳到對象的哪個屬性封裝 -- 主鍵返回
+    @Options(useGeneratedKeys = true, keyProperty = "id")
+    @Insert("insert into emp(username, name, gender, phone, job, salary, image, entry_date, dept_id, create_time, update_time)" +
+            "    values(#{username}, #{name}, #{gender}, #{phone}, #{job}, #{salary}, #{image}," +
+            "           #{entryDate}, #{deptId}, #{createTime}, #{updateTime})")
+    void insert(Emp emp);
 
 
     //---------------------------------------原始分頁查詢實現----------------------------------------------
@@ -28,12 +47,4 @@ public interface EmpMapper {
 //    Long count();
 
 
-    // 普通的分頁查詢語句
-    //@Select("select emp.*, dept.name deptName from emp left join dept on emp.dept_id = dept.id " +
-            //"order by emp.update_time desc")
-
-    // 條件查詢員工信息
-    // MyBatis 會把對象當作一個 屬性集合 來解析。
-    // XML 中可以直接用 #{屬性名} 來取值，例如：
-    List<Emp> list(EmpQueryParam empQueryParam);
 }

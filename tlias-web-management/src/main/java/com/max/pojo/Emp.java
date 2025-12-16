@@ -24,4 +24,6 @@ public class Emp {
 
     //封裝部門名稱，且需與查詢名稱相同所以更改sql的dept.name為deptName
     private String deptName;
+
+    private List<EmpExpr> exprList;
 }
