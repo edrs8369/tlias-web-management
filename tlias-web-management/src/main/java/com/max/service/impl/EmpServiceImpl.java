@@ -11,6 +11,7 @@ import com.max.pojo.PageResult;
 import com.max.service.EmpService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -41,6 +42,7 @@ public class EmpServiceImpl implements EmpService {
         return new PageResult<Emp>(p.getTotal(), p.getResult());
     }
 
+    @Transactional //事務管理
     @Override
     public void save(Emp emp) {
 
@@ -51,6 +53,7 @@ public class EmpServiceImpl implements EmpService {
         emp.setUpdateTime(LocalDateTime.now());
         empMapper.insert(emp);
 
+        int i = 1/0;
         //2. 保存員工工作經歷信息
         List<EmpExpr> exprList = emp.getExprList();
         if(exprList != null && !exprList.isEmpty()){

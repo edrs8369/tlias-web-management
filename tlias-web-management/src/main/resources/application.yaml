@@ -15,3 +15,8 @@ mybatis:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
     # 開啟駝峰命名開關
     map-underscore-to-camel-case: true
+
+#配置事務管理日誌級別
+logging:
+  level:
+    org.springframework.jdbc.support.JdbcTransactionManager: debug
