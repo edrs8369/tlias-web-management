@@ -4,10 +4,8 @@ import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.max.mapper.EmpExprMapper;
 import com.max.mapper.EmpMapper;
-import com.max.pojo.Emp;
-import com.max.pojo.EmpExpr;
-import com.max.pojo.EmpQueryParam;
-import com.max.pojo.PageResult;
+import com.max.pojo.*;
+import com.max.service.EmpLogService;
 import com.max.service.EmpService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,6 +23,10 @@ public class EmpServiceImpl implements EmpService {
 
     @Autowired
     private EmpExprMapper empExprMapper;
+
+    @Autowired
+    private EmpLogService empLogService;
+
     @Override
     public PageResult<Emp> page(EmpQueryParam empQueryParam) {
 
@@ -42,27 +44,35 @@ public class EmpServiceImpl implements EmpService {
         return new PageResult<Emp>(p.getTotal(), p.getResult());
     }
 
-    @Transactional //事務管理
+    @Transactional(rollbackFor = Exception.class) //事務管理 - 默認出現運行時異常RuntimeException才會回滾
     @Override
-    public void save(Emp emp) {
+    public void save(Emp emp) throws Exception {
 
-        //1. 保存員工基本信息
-        //前端沒有傳遞創建時間及修改時間
-        //補足基本信息
-        emp.setCreateTime(LocalDateTime.now());
-        emp.setUpdateTime(LocalDateTime.now());
-        empMapper.insert(emp);
+        try {
+            //1. 保存員工基本信息
+            //前端沒有傳遞創建時間及修改時間
+            //補足基本信息
+            emp.setCreateTime(LocalDateTime.now());
+            emp.setUpdateTime(LocalDateTime.now());
+            empMapper.insert(emp);
 
-        int i = 1/0;
-        //2. 保存員工工作經歷信息
-        List<EmpExpr> exprList = emp.getExprList();
-        if(exprList != null && !exprList.isEmpty()){
-            //遍歷集合， 為empId賦值
-            for (EmpExpr empExpr : exprList) {
-                empExpr.setEmpId(emp.getId());
+            //2. 保存員工工作經歷信息
+            List<EmpExpr> exprList = emp.getExprList();
+            if(exprList != null && !exprList.isEmpty()){
+                //遍歷集合， 為empId賦值
+                for (EmpExpr empExpr : exprList) {
+                    empExpr.setEmpId(emp.getId());
+                }
+                empExprMapper.insertBatch(exprList);
             }
-            empExprMapper.insertBatch(exprList);
+        } finally {
+            //紀錄操作日誌
+            EmpLog empLog = new EmpLog(null, LocalDateTime.now(), "新增員工:" + emp);
+            //錯誤發生時，因為在insertLog中設定了事務的傳播行為required_new，所以會到insertLog方法先創建事務2並提交
+            //結束後，再回到現在的方法中的事物1，讓事務1回滾，但因為事物2提交，所以不會影響到insertLog方法
+            empLogService.insertLog(empLog);
         }
+
     }
 
     // 基於PageHelper實現分頁查詢

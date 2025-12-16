@@ -45,7 +45,7 @@ public class EmpController {
 
     //新增員工
     @PostMapping
-    public Result save(@RequestBody Emp emp){
+    public Result save(@RequestBody Emp emp) throws Exception {
 
         log.info("新增員工: {}", emp);
 

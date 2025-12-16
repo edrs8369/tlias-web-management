@@ -15,5 +15,5 @@ public interface EmpService {
     PageResult<Emp> page(EmpQueryParam empQueryParam);
 
     //新增員工
-    void save(Emp emp);
+    void save(Emp emp) throws Exception;
 }
