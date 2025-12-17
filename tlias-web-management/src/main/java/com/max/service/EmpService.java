@@ -5,6 +5,7 @@ import com.max.pojo.EmpQueryParam;
 import com.max.pojo.PageResult;
 
 import java.time.LocalDate;
+import java.util.List;
 
 public interface EmpService {
 
@@ -16,4 +17,6 @@ public interface EmpService {
 
     //新增員工
     void save(Emp emp) throws Exception;
+
+    void delete(List<Integer> ids);
 }

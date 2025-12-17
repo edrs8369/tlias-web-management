@@ -3,6 +3,15 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.max.mapper.EmpMapper">
+
+    <!-- 批量刪除員工基本信息 -->
+    <delete id="deleteByIds">
+        delete from emp where id in
+        <foreach collection="ids" item="id" separator="," open="(" close=")">
+            #{id}
+        </foreach>
+    </delete>
+
     <select id="list" resultType="com.max.pojo.Emp">
         select emp.*, dept.name deptName from emp left join dept on emp.dept_id = dept.id
 

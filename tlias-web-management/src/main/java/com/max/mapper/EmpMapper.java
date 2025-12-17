@@ -3,10 +3,7 @@ package com.max.mapper;
 
 import com.max.pojo.Emp;
 import com.max.pojo.EmpQueryParam;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Options;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -32,6 +29,9 @@ public interface EmpMapper {
             "    values(#{username}, #{name}, #{gender}, #{phone}, #{job}, #{salary}, #{image}," +
             "           #{entryDate}, #{deptId}, #{createTime}, #{updateTime})")
     void insert(Emp emp);
+
+    //根據id批量刪除員工信息
+    void deleteByIds(List<Integer> ids);
 
 
     //---------------------------------------原始分頁查詢實現----------------------------------------------

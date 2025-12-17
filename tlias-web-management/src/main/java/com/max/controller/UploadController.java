@@ -29,11 +29,13 @@ public class UploadController {
         //再用substring獲取.之後的副檔名
         String extension = originalFilename.substring(originalFilename.lastIndexOf("."));
         //新的文件名，避免文件名重複導致覆蓋
-        String newFileName = UUID.randomUUID().toString() + extension;
+        String newFileName = UUID.randomUUID() + extension;
 
         //保存文件
         //transferTo() 將文件保存到指定位置
         file.transferTo(new File("C:/Users/user/Pictures/template/" + newFileName));
-        return Result.success();
+
+        String url = "/upload/" + newFileName;
+        return Result.success(url);
     }
 }

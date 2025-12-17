@@ -11,6 +11,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
+import java.util.List;
 
 //員工管理器Controller
 @Slf4j
@@ -20,19 +21,6 @@ public class EmpController {
 
     @Autowired
     private EmpService empService;
-
-    //分頁查詢
-//    @GetMapping
-//    public Result page(@RequestParam(defaultValue = "1") Integer page,
-//                       @RequestParam(defaultValue = "10") Integer pageSize,
-//                       @RequestParam(required = false) String name,
-//                       @RequestParam(required = false) Integer gender,
-//                       @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate begin,
-//                       @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate end){
-//        log.info("分頁查詢: {},{},{},{},{},{}", page, pageSize, name, gender, begin, end);
-//        PageResult<Emp> pageResult = empService.page(page, pageSize, name, gender, begin, end);
-//        return Result.success(pageResult);
-//    }
 
     //分頁查詢
     @GetMapping
@@ -53,4 +41,25 @@ public class EmpController {
 
         return Result.success();
     }
+
+    //刪除員工
+    @DeleteMapping
+    public Result delete(@RequestParam List<Integer> ids){
+        log.info("刪除員工id: {}", ids);
+        empService.delete(ids);
+        return Result.success();
+    }
+
+    //分頁查詢
+//    @GetMapping
+//    public Result page(@RequestParam(defaultValue = "1") Integer page,
+//                       @RequestParam(defaultValue = "10") Integer pageSize,
+//                       @RequestParam(required = false) String name,
+//                       @RequestParam(required = false) Integer gender,
+//                       @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate begin,
+//                       @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate end){
+//        log.info("分頁查詢: {},{},{},{},{},{}", page, pageSize, name, gender, begin, end);
+//        PageResult<Emp> pageResult = empService.page(page, pageSize, name, gender, begin, end);
+//        return Result.success(pageResult);
+//    }
 }

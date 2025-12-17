@@ -1,6 +1,13 @@
 spring:
   application:
     name: tlias-web-management
+  #把資料夾映射成靜態資源
+  mvc:
+    static-path-pattern: /upload/**
+  web:
+    resources:
+      static-locations:
+        - file:/C:/Users/user/Pictures/template/
 
 #配置數據庫的連接訊息
   datasource:
