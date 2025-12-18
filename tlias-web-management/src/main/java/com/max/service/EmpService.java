@@ -1,5 +1,6 @@
 package com.max.service;
 
+import com.max.dto.EmpListDTO;
 import com.max.pojo.Emp;
 import com.max.pojo.EmpQueryParam;
 import com.max.pojo.PageResult;
@@ -26,4 +27,7 @@ public interface EmpService {
 
     //修改員工信息
     void update(Emp emp);
+
+    //查詢全部員工
+    List<EmpListDTO> listAll();
 }

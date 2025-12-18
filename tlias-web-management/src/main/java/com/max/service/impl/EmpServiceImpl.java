@@ -2,6 +2,7 @@ package com.max.service.impl;
 
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
+import com.max.dto.EmpListDTO;
 import com.max.mapper.EmpExprMapper;
 import com.max.mapper.EmpMapper;
 import com.max.pojo.*;
@@ -126,6 +127,14 @@ public class EmpServiceImpl implements EmpService {
             }
             empExprMapper.insertBatch(exprList);
         }
+    }
+
+    @Override
+    public List<EmpListDTO> listAll() {
+
+        List<EmpListDTO> empList = empMapper.listAll();
+
+        return empList;
     }
 
     // 基於PageHelper實現分頁查詢

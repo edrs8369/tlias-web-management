@@ -1,5 +1,6 @@
 package com.max.controller;
 
+import com.max.dto.EmpListDTO;
 import com.max.pojo.Emp;
 import com.max.pojo.EmpQueryParam;
 import com.max.pojo.PageResult;
@@ -64,6 +65,14 @@ public class EmpController {
         log.info("修改員工: {}", emp);
         empService.update(emp);
         return Result.success();
+    }
+
+    //查詢全部員工
+    @GetMapping("/list")
+    public Result list(){
+        log.info("查詢全部員工");
+        List<EmpListDTO> empList = empService.listAll();
+        return Result.success(empList);
     }
 
     //分頁查詢

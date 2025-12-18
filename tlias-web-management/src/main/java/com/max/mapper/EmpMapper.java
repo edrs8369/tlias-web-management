@@ -1,6 +1,7 @@
 package com.max.mapper;
 
 
+import com.max.dto.EmpListDTO;
 import com.max.pojo.Emp;
 import com.max.pojo.EmpQueryParam;
 import org.apache.ibatis.annotations.*;
@@ -39,6 +40,9 @@ public interface EmpMapper {
 
     //根據id查詢員工基本信息
     void updateById(Emp emp);
+
+    @Select("select * from emp")
+    List<EmpListDTO> listAll();
 
 
     //---------------------------------------原始分頁查詢實現----------------------------------------------
