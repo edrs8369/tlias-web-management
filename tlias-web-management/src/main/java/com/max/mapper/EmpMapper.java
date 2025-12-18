@@ -33,6 +33,13 @@ public interface EmpMapper {
     //根據id批量刪除員工信息
     void deleteByIds(List<Integer> ids);
 
+    //根據id查詢員工信息
+    @Select("select * from emp where id = #{id}")
+    Emp getById(Integer id);
+
+    //根據id查詢員工基本信息
+    void updateById(Emp emp);
+
 
     //---------------------------------------原始分頁查詢實現----------------------------------------------
 

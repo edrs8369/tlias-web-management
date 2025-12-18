@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Arrays;
 import java.util.List;
 
 @Service
@@ -84,6 +85,47 @@ public class EmpServiceImpl implements EmpService {
 
         //2.刪除員工工作經歷信息
         empExprMapper.deleteByEmpIds(ids);
+    }
+
+    @Override
+    public Emp getInfo(Integer id) {
+
+        //根據id查詢員工經歷
+        List<EmpExpr> exprList = empExprMapper.getByEmpId(id);
+
+        //根據id查詢員工信息
+        Emp emp =empMapper.getById(id);
+
+        if (emp == null) {
+            throw new RuntimeException("員工不存在");
+        }
+
+        //將工作經歷封裝到emp裡面
+        emp.setExprList(exprList);
+
+        return emp;
+    }
+
+    @Transactional(rollbackFor = {Exception.class})
+    @Override
+    public void update(Emp emp) {
+        //1.根據id更新員工信息
+        emp.setUpdateTime(LocalDateTime.now());
+        empMapper.updateById(emp);
+
+        //2.根據id更新員工工作經歷信息
+        //2.1先根據員工的id刪除原有的工作經歷
+        //因為 Mapper 方法設計為「批量刪除」，即使只刪一筆，也必須把單一 id 包裝成 List 傳入。
+        empExprMapper.deleteByEmpIds(Arrays.asList(emp.getId()));
+
+        //2.2再添加這個員工新的工作經歷
+        List<EmpExpr> exprList = emp.getExprList();
+        if(exprList != null && !exprList.isEmpty()){
+            for (EmpExpr empExpr : exprList) {
+                empExpr.setEmpId(emp.getId());
+            }
+            empExprMapper.insertBatch(exprList);
+        }
     }
 
     // 基於PageHelper實現分頁查詢

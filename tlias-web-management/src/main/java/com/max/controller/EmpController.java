@@ -50,6 +50,22 @@ public class EmpController {
         return Result.success();
     }
 
+    //根據id查詢員工信息
+    @GetMapping("/{id}")
+    public Result getInfo(@PathVariable Integer id){
+        log.info("根據id查詢員工: {}", id);
+        Emp emp = empService.getInfo(id);
+        return Result.success(emp);
+    }
+
+    //修改員工
+    @PutMapping
+    public Result update(@RequestBody Emp emp){
+        log.info("修改員工: {}", emp);
+        empService.update(emp);
+        return Result.success();
+    }
+
     //分頁查詢
 //    @GetMapping
 //    public Result page(@RequestParam(defaultValue = "1") Integer page,

@@ -18,5 +18,12 @@ public interface EmpService {
     //新增員工
     void save(Emp emp) throws Exception;
 
+    //批量刪除員工
     void delete(List<Integer> ids);
+
+    //根據id查詢員工信息
+    Emp getInfo(Integer id);
+
+    //修改員工信息
+    void update(Emp emp);
 }
