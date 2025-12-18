@@ -8,6 +8,7 @@ import org.apache.ibatis.annotations.*;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Map;
 
 //員工信息
 @Mapper
@@ -44,7 +45,13 @@ public interface EmpMapper {
     @Select("select * from emp")
     List<EmpListDTO> listAll();
 
+    //統計員工職位人數
+    @MapKey("pos")
+    List<Map<String, Object>> countEmpJobData();
 
+    //統計員工各性別人數
+    @MapKey("gender")
+    List<Map<String, Object>> countEmpGenderData();
     //---------------------------------------原始分頁查詢實現----------------------------------------------
 
     //分頁查詢

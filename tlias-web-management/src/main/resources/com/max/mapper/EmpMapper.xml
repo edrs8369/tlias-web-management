@@ -51,4 +51,25 @@
         </where>
         order by emp.update_time desc
     </select>
+    <!-- 統計員工職位人數 -->
+    <select id="countEmpJobData" resultType="java.util.Map">
+        select
+        (case job when 1 then '班主任'
+        when 2 then '講師'
+        when 3 then '學工主管'
+        when 4 then '教研主管'
+        when 5 then '諮詢師'
+        when 6 then '其他' end) as pos ,
+        count(*) num
+        from emp group by job order by num ;
+    </select>
+
+    <!-- 統計員工性別人數 -->
+    <select id="countEmpGenderData" resultType="java.util.Map">
+        select
+        if(gender = 1, '男性員工', '女性員工') name ,
+        count(*) value
+        from emp group by gender;
+    </select>
+
 </mapper>
