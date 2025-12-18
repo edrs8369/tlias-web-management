@@ -3,21 +3,24 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.max.mapper.EmpMapper">
+    <!-- 根據id更新員工信息 -->
+    <!-- set標籤:會自動生成set關鍵字; 會自動的刪除掉更新字段後多餘的,-->
     <update id="updateById">
         UPDATE emp
-        SET
-        username     = #{username},
-        password     = #{password},
-        name         = #{name},
-        gender       = #{gender},
-        phone        = #{phone},
-        job          = #{job},
-        salary       = #{salary},
-        image        = #{image},
-        entry_date   = #{entryDate},
-        dept_id      = #{deptId},
-        update_time  = #{updateTime}
-        WHERE id = #{id};
+        <set>
+            <if test="username != null and username != ''">username = #{username},</if>
+            <if test="password != null and password != ''">password = #{password},</if>
+            <if test="name != null and name != ''">name = #{name},</if>
+            <if test="gender != null">gender = #{gender},</if>
+            <if test="phone != null and phone != ''">phone = #{phone},</if>
+            <if test="job != null">job = #{job},</if>
+            <if test="salary != null">salary = #{salary},</if>
+            <if test="image != null and image != ''">image = #{image},</if>
+            <if test="entryDate != null">entry_date = #{entryDate},</if>
+            <if test="deptId != null">dept_id = #{deptId},</if>
+            <if test="updateTime != null">update_time = #{updateTime}</if>
+        </set>
+        WHERE id = #{id}
     </update>
 
     <!-- 批量刪除員工基本信息 -->
