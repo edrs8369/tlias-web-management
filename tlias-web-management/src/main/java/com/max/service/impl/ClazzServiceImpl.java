@@ -80,4 +80,11 @@ public class ClazzServiceImpl implements ClazzService {
 
         clazzMapper.update(clazz);
     }
+
+    @Override
+    public List<Clazz> listAll() {
+
+        List<Clazz> clazzList = clazzMapper.listAll();
+        return clazzList;
+    }
 }

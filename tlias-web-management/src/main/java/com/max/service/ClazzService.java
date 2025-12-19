@@ -5,6 +5,8 @@ import com.max.pojo.Clazz;
 import com.max.pojo.ClazzQueryParam;
 import com.max.pojo.PageResult;
 
+import java.util.List;
+
 public interface ClazzService {
 
     //分頁查詢班級
@@ -21,4 +23,7 @@ public interface ClazzService {
 
     //修改班級
     void update(Clazz clazz);
+
+    //查詢所有班級
+    List<Clazz> listAll();
 }

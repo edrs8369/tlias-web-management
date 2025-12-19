@@ -35,4 +35,8 @@ public interface ClazzMapper {
 
     //更新班級
     void update(Clazz clazz);
+
+    //查詢所有班級
+    @Select("select * from clazz")
+    List<Clazz> listAll();
 }

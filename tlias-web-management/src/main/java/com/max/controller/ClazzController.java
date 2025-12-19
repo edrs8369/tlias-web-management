@@ -59,4 +59,12 @@ public class ClazzController {
         clazzService.update(clazz);
         return Result.success();
     }
+
+    //查詢所有班級
+    @GetMapping("/list")
+    public Result listAll(){
+        log.info("查詢所有班級");
+        List<Clazz> clazzList = clazzService.listAll();
+        return Result.success(clazzList);
+    }
 }
