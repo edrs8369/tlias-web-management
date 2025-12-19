@@ -29,6 +29,10 @@ public interface ClazzMapper {
             "(#{name}, #{room}, #{beginDate}, #{endDate}, #{masterId}, #{subject}, #{createTime}, #{updateTime})")
     void add(Clazz clazz);
 
+    //查詢指定班級
     @Select("select * from clazz where id = #{id}")
     Clazz getById(Integer id);
+
+    //更新班級
+    void update(Clazz clazz);
 }
