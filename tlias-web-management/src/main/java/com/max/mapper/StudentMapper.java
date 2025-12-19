@@ -6,6 +6,7 @@ import com.max.pojo.StudentQueryParam;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;
+import java.util.Map;
 
 @Mapper
 public interface StudentMapper {
@@ -31,4 +32,8 @@ public interface StudentMapper {
 
 
     void countViolation(Integer id, Integer score);
+
+    //統計學生學歷信息
+    @MapKey("degree")
+    List<Map<String, Object>> countDegreeData();
 }

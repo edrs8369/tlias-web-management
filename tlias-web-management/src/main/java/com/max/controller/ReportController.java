@@ -36,4 +36,12 @@ public class ReportController {
         List<Map<String, Object>> genderList = reportService.getEmpGenderDate();
         return Result.success(genderList);
     }
+
+    //統計學生的學歷信息
+    @GetMapping("/studentDegreeData")
+    public Result getStudentDegreeData(){
+        log.info("獲取學生的學歷信息");
+        List<Map<String, Object>> degreeList = reportService.getStudentDegreeData();
+        return Result.success(degreeList);
+    }
 }
