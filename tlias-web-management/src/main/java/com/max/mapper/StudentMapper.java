@@ -6,6 +6,7 @@ import com.max.pojo.StudentQueryParam;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Options;
+import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
 
@@ -25,4 +26,7 @@ public interface StudentMapper {
             "VALUES " +
             "(#{name}, #{no}, #{gender}, #{phone}, #{idCard}, #{isCollege}, #{address}, #{degree}, #{graduationDate}, #{clazzId}, #{createTime}, #{updateTime})")
     void insert(Student student);
+
+    @Select("select * from student where id = #{id}")
+    Student getById(Integer id);
 }

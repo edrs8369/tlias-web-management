@@ -17,4 +17,7 @@ public interface StudentService {
 
     //新增學生
     void add(Student student);
+
+    //根據id查詢學生
+    Student getInfo(Integer id);
 }

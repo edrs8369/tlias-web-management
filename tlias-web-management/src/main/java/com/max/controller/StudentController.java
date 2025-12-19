@@ -22,6 +22,7 @@ public class StudentController {
     @Autowired
     private StudentService studentService;
 
+    //分頁條件查詢
     @GetMapping
     public Result page(StudentQueryParam studentQueryParam){
         log.info("分頁查詢: {}", studentQueryParam);
@@ -29,6 +30,7 @@ public class StudentController {
         return Result.success(pageResult);
     }
 
+    //批量刪除
     @DeleteMapping("/{ids}")
     public Result delete(@PathVariable String ids){
 
@@ -46,10 +48,19 @@ public class StudentController {
         return Result.success();
     }
 
+    //新增學生
     @PostMapping
     public Result add(@RequestBody Student student){
         log.info("添加學生: {}", student);
         studentService.add(student);
         return Result.success();
+    }
+
+    //根據Id指定學生
+    @GetMapping("/{id}")
+    public Result getInfo(@PathVariable Integer id){
+        log.info("根據id查詢學生: {}", id);
+        Student student = studentService.getInfo(id);
+        return Result.success(student);
     }
 }

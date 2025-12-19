@@ -60,4 +60,10 @@ public class StudentServiceImpl implements StudentService {
 
         studentMapper.insert(student);
     }
+
+    @Override
+    public Student getInfo(Integer id) {
+
+        return studentMapper.getById(id);
+    }
 }
