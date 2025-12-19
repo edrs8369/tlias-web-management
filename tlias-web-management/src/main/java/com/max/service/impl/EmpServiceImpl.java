@@ -35,6 +35,7 @@ public class EmpServiceImpl implements EmpService {
         //1.設置分頁參數(PageHelper)
         //startPage 設置分頁參數 → MyBatis 插件攔截下一條查詢 → 自動加 LIMIT/OFFSET → 結果封裝成 Page（繼承 List）。
         //因為多態的關係，Page的源碼繼承了 -> ArrayList ->　List
+        //自動幫你多查的一個 COUNT(*) 結果，並存進 Page 物件裡的。
         PageHelper.startPage(empQueryParam.getPage(), empQueryParam.getPageSize());
 
         //2.執行查詢
