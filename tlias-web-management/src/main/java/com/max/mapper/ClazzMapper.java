@@ -3,13 +3,11 @@ package com.max.mapper;
 import com.max.dto.ClazzDTO;
 import com.max.pojo.Clazz;
 import com.max.pojo.ClazzQueryParam;
-import org.apache.ibatis.annotations.Delete;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 @Mapper
 public interface ClazzMapper {
@@ -39,4 +37,8 @@ public interface ClazzMapper {
     //查詢所有班級
     @Select("select * from clazz")
     List<Clazz> listAll();
+
+    //統計班級人數
+    @MapKey("clazzName")
+    List<Map<String, Object>> getStudentCountData();
 }

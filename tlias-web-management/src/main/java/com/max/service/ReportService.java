@@ -1,5 +1,6 @@
 package com.max.service;
 
+import com.max.pojo.ClazzCountOption;
 import com.max.pojo.JobOption;
 
 import java.util.List;
@@ -16,4 +17,7 @@ public interface ReportService {
 
     //統計學生的學歷信息
     List<Map<String, Object>> getStudentDegreeData();
+
+    //統計班級人數
+    ClazzCountOption getStudentCountData();
 }

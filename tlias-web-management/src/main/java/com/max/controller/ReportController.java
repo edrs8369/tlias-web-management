@@ -1,5 +1,6 @@
 package com.max.controller;
 
+import com.max.pojo.ClazzCountOption;
 import com.max.pojo.JobOption;
 import com.max.pojo.Result;
 import com.max.service.ReportService;
@@ -43,5 +44,13 @@ public class ReportController {
         log.info("獲取學生的學歷信息");
         List<Map<String, Object>> degreeList = reportService.getStudentDegreeData();
         return Result.success(degreeList);
+    }
+
+    //統計班級學生數
+    @GetMapping("/studentCountData")
+    public Result getStudentCountData(){
+        log.info("獲取班級學生數");
+        ClazzCountOption clazzCountOption = reportService.getStudentCountData();
+        return Result.success(clazzCountOption);
     }
 }

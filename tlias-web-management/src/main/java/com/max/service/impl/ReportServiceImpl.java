@@ -1,7 +1,9 @@
 package com.max.service.impl;
 
+import com.max.mapper.ClazzMapper;
 import com.max.mapper.EmpMapper;
 import com.max.mapper.StudentMapper;
+import com.max.pojo.ClazzCountOption;
 import com.max.pojo.JobOption;
 import com.max.service.ReportService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +20,9 @@ public class ReportServiceImpl implements ReportService {
 
     @Autowired
     private StudentMapper studentMapper;
+
+    @Autowired
+    private ClazzMapper clazzMapper;
 
     @Override
     public JobOption getEmpJobDate() {
@@ -42,5 +47,19 @@ public class ReportServiceImpl implements ReportService {
     @Override
     public List<Map<String, Object>> getStudentDegreeData() {
         return studentMapper.countDegreeData();
+    }
+
+    @Override
+    public ClazzCountOption getStudentCountData() {
+
+        List<Map<String, Object>> list = clazzMapper.getStudentCountData();
+
+        List<Object> clazzNameList = list.stream().
+                map(dataMap -> dataMap.get("clazzName")).toList();
+
+        List<Object> numlist = list.stream()
+                .map(dataMap -> dataMap.get("studentCount")).toList();
+
+        return new ClazzCountOption(clazzNameList, numlist);
     }
 }
