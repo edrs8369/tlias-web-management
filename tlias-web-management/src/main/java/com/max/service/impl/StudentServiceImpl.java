@@ -15,8 +15,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class
-StudentServiceImpl implements StudentService {
+public class StudentServiceImpl implements StudentService {
 
     @Autowired
     private StudentMapper studentMapper;
@@ -38,5 +37,11 @@ StudentServiceImpl implements StudentService {
         Page<StudentDTO> p = (Page<StudentDTO>) studentList;
 
         return new PageResult<>(p.getTotal(), p.getResult());
+    }
+
+    @Override
+    public void delete(List<Integer> ids) {
+
+        studentMapper.deleteById(ids);
     }
 }

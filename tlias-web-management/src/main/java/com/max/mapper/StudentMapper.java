@@ -11,4 +11,7 @@ public interface StudentMapper {
 
     //班級條件查詢
     List<StudentDTO> list(StudentQueryParam studentQueryParam);
+
+    //根據id刪除員工
+    void deleteById(List<Integer> ids);
 }
