@@ -23,7 +23,7 @@ public class ClazzController {
     //條件查詢班級
     @GetMapping
     public Result page(ClazzQueryParam clazzQueryParam){
-        log.info("分頁查詢");
+        log.info("分頁查詢, {}", clazzQueryParam);
         PageResult<ClazzDTO> pageResult = clazzService.page(clazzQueryParam);
         return Result.success(pageResult);
     }
