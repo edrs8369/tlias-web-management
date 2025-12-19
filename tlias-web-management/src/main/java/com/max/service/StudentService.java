@@ -20,4 +20,7 @@ public interface StudentService {
 
     //根據id查詢學生
     Student getInfo(Integer id);
+
+    //更新學生
+    void update(Student student);
 }

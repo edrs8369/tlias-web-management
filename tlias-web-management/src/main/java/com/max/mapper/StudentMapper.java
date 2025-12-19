@@ -29,4 +29,6 @@ public interface StudentMapper {
 
     @Select("select * from student where id = #{id}")
     Student getById(Integer id);
+
+    void update(Student student);
 }
