@@ -45,4 +45,11 @@ public class StudentController {
         studentService.delete(list);
         return Result.success();
     }
+
+    @PostMapping
+    public Result add(@RequestBody Student student){
+        log.info("添加學生: {}", student);
+        studentService.add(student);
+        return Result.success();
+    }
 }

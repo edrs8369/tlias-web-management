@@ -4,6 +4,7 @@ import com.max.pojo.Result;
 import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.dao.DuplicateKeyException;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
@@ -27,4 +28,5 @@ public class GlobalExceptionHandler {
         String[] arr = errMsg.split(" ");
         return Result.error(arr[2] + "已存在");
     }
+
 }

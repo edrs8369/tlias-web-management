@@ -7,11 +7,13 @@ import com.max.mapper.ClazzMapper;
 import com.max.mapper.StudentMapper;
 import com.max.pojo.Clazz;
 import com.max.pojo.PageResult;
+import com.max.pojo.Student;
 import com.max.pojo.StudentQueryParam;
 import com.max.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -43,5 +45,14 @@ public class StudentServiceImpl implements StudentService {
     public void delete(List<Integer> ids) {
 
         studentMapper.deleteById(ids);
+    }
+
+    @Override
+    public void add(Student student) {
+
+        student.setCreateTime(LocalDateTime.now());
+        student.setUpdateTime(LocalDateTime.now());
+
+        studentMapper.insert(student);
     }
 }
