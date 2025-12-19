@@ -2,6 +2,7 @@ package com.max.service.impl;
 
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
+import com.max.dto.ClazzDTO;
 import com.max.mapper.ClazzMapper;
 import com.max.mapper.EmpMapper;
 import com.max.pojo.Clazz;
@@ -26,13 +27,13 @@ public class ClazzServiceImpl implements ClazzService {
     private EmpMapper empMapper;
 
     @Override
-    public PageResult<Clazz> page(ClazzQueryParam clazzQueryParam) {
+    public PageResult<ClazzDTO> page(ClazzQueryParam clazzQueryParam) {
 
         PageHelper.startPage(clazzQueryParam.getPage(), clazzQueryParam.getPageSize());
 
-        List<Clazz> clazzList = clazzMapper.list(clazzQueryParam);
+        List<ClazzDTO> clazzList = clazzMapper.list(clazzQueryParam);
 
-        for (Clazz clazz : clazzList) {
+        for (ClazzDTO clazz : clazzList) {
             Emp master = empMapper.getById(clazz.getMasterId());
             clazz.setMasterName(master.getName());
 
@@ -47,8 +48,8 @@ public class ClazzServiceImpl implements ClazzService {
             }
         }
 
-        Page<Clazz> p = (Page<Clazz>) clazzList;
-        return new PageResult<Clazz>(p.getTotal(), p.getResult());
+        Page<ClazzDTO> p = (Page<ClazzDTO>) clazzList;
+        return new PageResult<ClazzDTO>(p.getTotal(), p.getResult());
 
     }
 
@@ -64,5 +65,11 @@ public class ClazzServiceImpl implements ClazzService {
         clazz.setCreateTime(LocalDateTime.now());
         clazz.setUpdateTime(LocalDateTime.now());
         clazzMapper.add(clazz);
+    }
+
+    @Override
+    public Clazz getById(Integer id) {
+
+        return clazzMapper.getById(id);
     }
 }

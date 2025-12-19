@@ -3,7 +3,7 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.max.mapper.ClazzMapper">
-    <select id="list" resultType="com.max.pojo.Clazz">
+    <select id="list" resultType="com.max.dto.ClazzDTO">
         select * from clazz
         <where>
             <if test="name != null and name != ''">

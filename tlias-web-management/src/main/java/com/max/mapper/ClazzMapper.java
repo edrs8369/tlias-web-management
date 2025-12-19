@@ -1,10 +1,13 @@
 package com.max.mapper;
 
+import com.max.dto.ClazzDTO;
 import com.max.pojo.Clazz;
 import com.max.pojo.ClazzQueryParam;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Select;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
@@ -13,7 +16,7 @@ public interface ClazzMapper {
 
 
     //班級條件查詢
-    List<Clazz> list(ClazzQueryParam clazzQueryParam);
+    List<ClazzDTO> list(ClazzQueryParam clazzQueryParam);
 
     //刪除班級
     @Delete("delete from clazz where id = #{id}")
@@ -25,4 +28,7 @@ public interface ClazzMapper {
             "VALUES " +
             "(#{name}, #{room}, #{beginDate}, #{endDate}, #{masterId}, #{subject}, #{createTime}, #{updateTime})")
     void add(Clazz clazz);
+
+    @Select("select * from clazz where id = #{id}")
+    Clazz getById(Integer id);
 }

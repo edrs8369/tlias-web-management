@@ -1,9 +1,8 @@
-package com.max.pojo;
+package com.max.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -11,7 +10,7 @@ import java.time.LocalDateTime;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Clazz {
+public class ClazzDTO {
     private Integer id; //ID
     private String name; //班级名称
     private String room; //班级教室
@@ -23,4 +22,7 @@ public class Clazz {
     private LocalDateTime createTime; //创建时间
     private LocalDateTime updateTime; //修改时间
 
+    private String masterName; //班主任姓名
+    private String status; //班级状态 - 未开班 , 在读 , 已结课
 }
+

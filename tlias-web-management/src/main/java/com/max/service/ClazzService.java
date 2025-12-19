@@ -1,5 +1,6 @@
 package com.max.service;
 
+import com.max.dto.ClazzDTO;
 import com.max.pojo.Clazz;
 import com.max.pojo.ClazzQueryParam;
 import com.max.pojo.PageResult;
@@ -7,11 +8,14 @@ import com.max.pojo.PageResult;
 public interface ClazzService {
 
     //分頁查詢班級
-    PageResult<Clazz> page(ClazzQueryParam clazzQueryParam);
+    PageResult<ClazzDTO> page(ClazzQueryParam clazzQueryParam);
 
     //刪除班級
     void delete(Integer id);
 
     //新增班級
     void add(Clazz clazz);
+
+    //根據id查詢班級
+    Clazz getById(Integer id);
 }
