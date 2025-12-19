@@ -34,4 +34,12 @@ public class ClazzController {
         clazzService.delete(id);
         return Result.success();
     }
+
+    //添加班級
+    @PostMapping
+    public Result save(@RequestBody Clazz clazz){
+        log.info("添加班級: {}", clazz);
+        clazzService.add(clazz);
+        return Result.success();
+    }
 }

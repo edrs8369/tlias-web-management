@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -46,11 +47,7 @@ public class ClazzServiceImpl implements ClazzService {
             }
         }
 
-
         Page<Clazz> p = (Page<Clazz>) clazzList;
-
-
-
         return new PageResult<Clazz>(p.getTotal(), p.getResult());
 
     }
@@ -59,5 +56,13 @@ public class ClazzServiceImpl implements ClazzService {
     @Override
     public void delete(Integer id) {
         clazzMapper.deleteById(id);
+    }
+
+    @Override
+    public void add(Clazz clazz) {
+
+        clazz.setCreateTime(LocalDateTime.now());
+        clazz.setUpdateTime(LocalDateTime.now());
+        clazzMapper.add(clazz);
     }
 }
