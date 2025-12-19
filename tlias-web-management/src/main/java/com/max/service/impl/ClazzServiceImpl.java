@@ -35,7 +35,11 @@ public class ClazzServiceImpl implements ClazzService {
 
         for (ClazzDTO clazz : clazzList) {
             Emp master = empMapper.getById(clazz.getMasterId());
-            clazz.setMasterName(master.getName());
+            if(master != null){
+                clazz.setMasterName(master.getName());
+            } else {
+                clazz.setMasterName(null);
+            }
 
             LocalDate today = LocalDate.now();
 

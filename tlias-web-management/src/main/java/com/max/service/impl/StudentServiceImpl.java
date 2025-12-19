@@ -33,7 +33,12 @@ public class StudentServiceImpl implements StudentService {
 
         for (StudentDTO studentDTO : studentList) {
             Clazz clazzName = clazzMapper.getById(studentDTO.getClazzId());
-            studentDTO.setClazzName(clazzName.getName());
+            Clazz clazz = clazzMapper.getById(studentDTO.getClazzId());
+            if(clazz != null){
+                studentDTO.setClazzName(clazz.getName());
+            } else {
+                studentDTO.setClazzName(null);
+            }
         }
 
         Page<StudentDTO> p = (Page<StudentDTO>) studentList;
