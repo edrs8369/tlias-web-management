@@ -29,4 +29,9 @@ public class GlobalExceptionHandler {
         return Result.error(arr[2] + "已存在");
     }
 
+    @ExceptionHandler(RuntimeException.class)
+    public Result handleRuntime(RuntimeException e) {
+        return Result.error(e.getMessage());
+    }
+
 }

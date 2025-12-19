@@ -72,4 +72,12 @@ public class StudentController {
         return Result.success();
     }
 
+    //違規處理
+    @PutMapping("/violation/{id}/{score}")
+    public Result violation(@PathVariable Integer id,
+                            @PathVariable Integer score){
+        log.info("違規處理: {}, {}", id, score);
+        studentService.violation(id, score);
+        return Result.success();
+    }
 }

@@ -3,10 +3,7 @@ package com.max.mapper;
 import com.max.dto.StudentDTO;
 import com.max.pojo.Student;
 import com.max.pojo.StudentQueryParam;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Options;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 
@@ -31,4 +28,7 @@ public interface StudentMapper {
     Student getById(Integer id);
 
     void update(Student student);
+
+
+    void countViolation(Integer id, Integer score);
 }

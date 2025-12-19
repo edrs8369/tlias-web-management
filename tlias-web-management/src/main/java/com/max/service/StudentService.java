@@ -23,4 +23,7 @@ public interface StudentService {
 
     //更新學生
     void update(Student student);
+
+    //違規處理
+    void violation(Integer id, Integer score);
 }

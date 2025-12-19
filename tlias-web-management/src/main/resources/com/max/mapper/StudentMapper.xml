@@ -48,6 +48,14 @@
         WHERE id = #{id}
     </update>
 
+    <!-- 違規處理 -->
+    <update id="countViolation">
+        update student set
+            violation_score = violation_score + #{score},
+            violation_count = violation_count + 1,
+        update_time = NOW()  where id = #{id}
+    </update>
+
     <delete id="deleteById">
         delete from student where id in
         <foreach collection="ids" item="id" separator="," open="(" close=")">
