@@ -5,6 +5,7 @@ import com.max.pojo.Dept;
 import com.max.service.DeptService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -41,8 +42,15 @@ public class DeptServiceImpl implements DeptService {
         return deptMapper.getById(id);
     }
 
+
     @Override
     public void update(Dept dept) {
+
+        Dept byId = deptMapper.getById(dept.getId());
+
+        if(byId == null) {
+            throw new RuntimeException("要修改的部門不存在");
+        }
 
         //1.補全基礎屬性-updateTime
         dept.setUpdateTime(LocalDateTime.now());

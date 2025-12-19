@@ -80,6 +80,11 @@ public class ClazzServiceImpl implements ClazzService {
     @Override
     public void update(Clazz clazz) {
 
+        Clazz byId = clazzMapper.getById(clazz.getId());
+        if(byId == null) {
+            throw new RuntimeException("要修改的班级不存在");
+        }
+
         clazz.setUpdateTime(LocalDateTime.now());
 
         clazzMapper.update(clazz);

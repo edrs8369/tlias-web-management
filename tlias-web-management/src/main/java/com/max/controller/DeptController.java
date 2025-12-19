@@ -34,7 +34,7 @@ public class DeptController {
     //刪除指定id部門
     @DeleteMapping
     public Result delete(@RequestParam("id") Integer deptId) {
-//        System.out.println("刪除部門，id=" + deptId);
+//      System.out.println("刪除部門，id=" + deptId);
         log.info("刪除部門，id= {}", deptId);
         deptService.deleteById(deptId);
         return Result.success();

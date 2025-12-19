@@ -70,6 +70,12 @@ public class StudentServiceImpl implements StudentService {
     @Override
     public void update(Student student) {
 
+        Student byId = studentMapper.getById(student.getId());
+
+        if(byId == null){
+            throw new RuntimeException("要修改的学员不存在");
+        }
+
         student.setUpdateTime(LocalDateTime.now());
         studentMapper.update(student);
     }

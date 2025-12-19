@@ -111,6 +111,7 @@ public class EmpServiceImpl implements EmpService {
     @Transactional(rollbackFor = {Exception.class})
     @Override
     public void update(Emp emp) {
+
         //1.根據id更新員工信息
         emp.setUpdateTime(LocalDateTime.now());
         empMapper.updateById(emp);
