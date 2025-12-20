@@ -3,11 +3,13 @@ package com.max.service.impl;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.max.dto.EmpListDTO;
+import com.max.exception.LoginException;
 import com.max.mapper.EmpExprMapper;
 import com.max.mapper.EmpMapper;
 import com.max.pojo.*;
 import com.max.service.EmpLogService;
 import com.max.service.EmpService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,6 +19,7 @@ import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
 
+@Slf4j
 @Service
 public class EmpServiceImpl implements EmpService {
 
@@ -32,17 +35,17 @@ public class EmpServiceImpl implements EmpService {
     @Override
     public PageResult<Emp> page(EmpQueryParam empQueryParam) {
 
-        //1.設置分頁參數(PageHelper)
-        //startPage 設置分頁參數 → MyBatis 插件攔截下一條查詢 → 自動加 LIMIT/OFFSET → 結果封裝成 Page（繼承 List）。
-        //因為多態的關係，Page的源碼繼承了 -> ArrayList ->　List
-        //自動幫你多查的一個 COUNT(*) 結果，並存進 Page 物件裡的。
+        // 1. 設置分頁參數（PageHelper）
+        // startPage 會設定分頁條件，MyBatis Plugin 會攔截下一條查詢 SQL，
+        // 自動加上 LIMIT / OFFSET，並額外執行一次 COUNT(*) 查詢。
+        // 查詢結果會被封裝成 Page 物件（Page 繼承 ArrayList，實作 List），
+        // 因此可用 List 接收，但實際物件仍是 Page，裡面包含總筆數等分頁資訊。
         PageHelper.startPage(empQueryParam.getPage(), empQueryParam.getPageSize());
 
         //2.執行查詢
         List<Emp> emplist = empMapper.list(empQueryParam);
 
-        //3.解析查詢結果， 並封裝數據
-        //因為是多態，所以List0可以向下轉型
+        //3.解析查詢結所以List0可以向下轉型果， 並封裝數據
         Page<Emp> p = (Page<Emp>) emplist;
         return new PageResult<Emp>(p.getTotal(), p.getResult());
     }
@@ -137,6 +140,21 @@ public class EmpServiceImpl implements EmpService {
         List<EmpListDTO> empList = empMapper.listAll();
 
         return empList;
+    }
+
+    @Override
+    public LoginInfo login(Emp emp) {
+        //1.調用mapper接口，根據用戶名和密碼查詢員工信息
+        Emp e = empMapper.selectByUserNameAndPassword(emp);
+
+        //2.判斷員工是否存在
+        if(e == null){
+            throw new LoginException("用戶名或密碼錯誤");
+        }
+
+        log.info("登入成功, 員工信息: {}", e);
+        return new LoginInfo(e.getId(), e.getUsername(), e.getName(), "");
+
     }
 
     // 基於PageHelper實現分頁查詢

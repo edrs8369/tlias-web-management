@@ -3,6 +3,7 @@ package com.max.service;
 import com.max.dto.EmpListDTO;
 import com.max.pojo.Emp;
 import com.max.pojo.EmpQueryParam;
+import com.max.pojo.LoginInfo;
 import com.max.pojo.PageResult;
 
 import java.time.LocalDate;
@@ -30,4 +31,7 @@ public interface EmpService {
 
     //查詢全部員工
     List<EmpListDTO> listAll();
+
+    //員工登入
+    LoginInfo login(Emp emp);
 }

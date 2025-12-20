@@ -34,4 +34,9 @@ public class GlobalExceptionHandler {
         return Result.error(e.getMessage());
     }
 
+    @ExceptionHandler(LoginException.class)
+    public Result handleLoginException(LoginException e){
+        return Result.error(e.getMessage());
+    }
+
 }

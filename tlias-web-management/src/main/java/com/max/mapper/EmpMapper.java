@@ -52,6 +52,10 @@ public interface EmpMapper {
     //統計員工各性別人數
     @MapKey("gender")
     List<Map<String, Object>> countEmpGenderData();
+
+    //根據用戶名稱和密碼查詢員工信息
+    @Select("select id, username, name from emp where username = #{username} and password = #{password}")
+    Emp selectByUserNameAndPassword(Emp emp);
     //---------------------------------------原始分頁查詢實現----------------------------------------------
 
     //分頁查詢

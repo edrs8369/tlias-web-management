@@ -54,8 +54,9 @@ public class ReportServiceImpl implements ReportService {
 
         List<Map<String, Object>> list = clazzMapper.getStudentCountData();
 
+        //呼叫 toList() 時，底層就是類似做了一個 List 的容器，然後 一個元素一個元素地處理完後依序放進去
         List<Object> clazzNameList = list.stream().
-                map(dataMap -> dataMap.get("clazzName")).toList();
+                map(dataMap -> dataMap.get("clazzName")).toList(); //取得所有班級名稱
 
         List<Object> numlist = list.stream()
                 .map(dataMap -> dataMap.get("studentCount")).toList();
