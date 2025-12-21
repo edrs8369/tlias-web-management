@@ -9,6 +9,7 @@ import com.max.mapper.EmpMapper;
 import com.max.pojo.*;
 import com.max.service.EmpLogService;
 import com.max.service.EmpService;
+import com.max.utils.JwtUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,7 +18,9 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Slf4j
 @Service
@@ -152,8 +155,14 @@ public class EmpServiceImpl implements EmpService {
             throw new LoginException("用戶名或密碼錯誤");
         }
 
+        //3.生成JWT令牌
+        Map<String, Object> claims = new HashMap<>();
+        claims.put("id", e.getId());
+        claims.put("username", e.getUsername());
+        String jwt = JwtUtils.generateToken(claims);
+
         log.info("登入成功, 員工信息: {}", e);
-        return new LoginInfo(e.getId(), e.getUsername(), e.getName(), "");
+        return new LoginInfo(e.getId(), e.getUsername(), e.getName(), jwt);
 
     }
 
