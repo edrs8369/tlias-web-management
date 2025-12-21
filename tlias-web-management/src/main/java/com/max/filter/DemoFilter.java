@@ -7,7 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 import java.io.IOException;
 
 //指定攔截路徑
-@WebFilter(urlPatterns = "/*") //攔截所有請求
+//@WebFilter(urlPatterns = "/*") //攔截所有請求
 @Slf4j
 public class DemoFilter implements Filter {
 
