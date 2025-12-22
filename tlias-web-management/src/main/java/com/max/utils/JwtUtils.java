@@ -16,7 +16,7 @@ public class JwtUtils {
     // 過期時間：12 小時（毫秒）
     private static final long EXPIRATION_MILLIS = 12 * 60 * 60 * 1000;
 
-    // 將 Base64 密鑰轉成 SecretKey
+    // 將 Base64 密鑰轉成 SecretKeyx`
     private static final SecretKey SECRET_KEY = Keys.hmacShaKeyFor(Base64.getDecoder().decode(SECRET_KEY_BASE64));
 
     /**

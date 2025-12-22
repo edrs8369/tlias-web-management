@@ -1,21 +1,18 @@
-package com.max.filter;
+package com.max.interceptor;
 
 import com.max.utils.JwtUtils;
-import jakarta.servlet.*;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
-
-import java.io.IOException;
+import org.springframework.stereotype.Component;
+import org.springframework.web.servlet.HandlerInterceptor;
 
 @Slf4j
-//@WebFilter(urlPatterns = "/*")
-public class TokenFilter implements Filter {
-    @Override
-    public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
+@Component
+public class TokenInterceptor implements HandlerInterceptor {
 
-        HttpServletRequest request = (HttpServletRequest) servletRequest;
-        HttpServletResponse response = (HttpServletResponse) servletResponse;
+    @Override
+    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
 
         //1.獲取到請求路徑
         String requestURI = request.getRequestURI(); //URI訪問資源的路徑(不包含前面的協議) ex:/employee/login
@@ -23,8 +20,7 @@ public class TokenFilter implements Filter {
         //2.判斷是否為登入請求， 如果路經包含 /login, 說明是登入操作，放行
         if(requestURI.contains("/login")){
             log.info("登入請求， 放行");
-            filterChain.doFilter(request, response);
-            return;
+            return true;
         }
 
         //3.獲取請求中的token
@@ -34,7 +30,7 @@ public class TokenFilter implements Filter {
         if(token == null || token.isEmpty()){
             log.info("令牌為空， 返回401狀態碼");
             response.setStatus(401);
-            return;
+            return false;
         }
 
         //5.如果token存在， 校驗令牌， 如果校驗失敗，返回錯誤信息401狀態碼
@@ -43,11 +39,11 @@ public class TokenFilter implements Filter {
         } catch (Exception e){
             log.info("令牌校驗失敗， 返回401狀態碼");
             response.setStatus(401);
-            return;
+            return false;
         }
 
         //6.如果校驗通過就放行
         log.info("令牌校驗通過， 放行");
-        filterChain.doFilter(request, response);
+        return true;
     }
 }
