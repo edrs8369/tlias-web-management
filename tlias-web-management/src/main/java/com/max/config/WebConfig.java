@@ -24,6 +24,9 @@ public class WebConfig implements WebMvcConfigurer {
     public void addInterceptors(InterceptorRegistry registry) {
 
         //新增攔截器
-        registry.addInterceptor(tokenInterceptor).addPathPatterns("/**");//攔截所有請求
+        registry.addInterceptor(tokenInterceptor)
+                .addPathPatterns("/**") //攔截所有請求
+                .excludePathPatterns("/login");//不攔截哪些請求
+
     }
 }

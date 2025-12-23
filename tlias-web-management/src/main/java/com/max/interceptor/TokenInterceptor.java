@@ -1,6 +1,8 @@
 package com.max.interceptor;
 
+import com.max.utils.CurrentHolder;
 import com.max.utils.JwtUtils;
+import io.jsonwebtoken.Claims;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
@@ -14,14 +16,14 @@ public class TokenInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
 
-        //1.獲取到請求路徑
-        String requestURI = request.getRequestURI(); //URI訪問資源的路徑(不包含前面的協議) ex:/employee/login
-
-        //2.判斷是否為登入請求， 如果路經包含 /login, 說明是登入操作，放行
-        if(requestURI.contains("/login")){
-            log.info("登入請求， 放行");
-            return true;
-        }
+//        //1.獲取到請求路徑
+//        String requestURI = request.getRequestURI(); //URI訪問資源的路徑(不包含前面的協議) ex:/employee/login
+//
+//        //2.判斷是否為登入請求， 如果路經包含 /login, 說明是登入操作，放行
+//        if(requestURI.contains("/login")){
+//            log.info("登入請求， 放行");
+//            return true;
+//        }
 
         //3.獲取請求中的token
         String token = request.getHeader("token");
@@ -35,7 +37,12 @@ public class TokenInterceptor implements HandlerInterceptor {
 
         //5.如果token存在， 校驗令牌， 如果校驗失敗，返回錯誤信息401狀態碼
         try {
-            JwtUtils.parseToken(token);
+            Claims claims = JwtUtils.parseToken(token);
+            //取得使用者id並轉換成Integer
+            Integer empId = Integer.valueOf(claims.get("id").toString());
+            //將使用者id存儲在ThreadLocal中
+            CurrentHolder.setCurrentId(empId);
+            log.info("當前登入員工ID: {}, 將其存入ThreadLocal", empId);
         } catch (Exception e){
             log.info("令牌校驗失敗， 返回401狀態碼");
             response.setStatus(401);
@@ -45,5 +52,13 @@ public class TokenInterceptor implements HandlerInterceptor {
         //6.如果校驗通過就放行
         log.info("令牌校驗通過， 放行");
         return true;
+    }
+
+    //在請求結束後刪除ThreadLocal中保存的數據
+    @Override
+    public void afterCompletion(HttpServletRequest request,
+                                HttpServletResponse response,
+                                Object handler, Exception ex) {
+        CurrentHolder.remove();
     }
 }

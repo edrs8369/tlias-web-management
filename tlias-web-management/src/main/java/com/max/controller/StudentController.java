@@ -50,9 +50,9 @@ public class StudentController {
 
     //新增學生
     @PostMapping
-    public Result add(@RequestBody Student student){
+    public Result save(@RequestBody Student student){
         log.info("添加學生: {}", student);
-        studentService.add(student);
+        studentService.save(student);
         return Result.success();
     }
 

@@ -42,10 +42,10 @@ public class DeptController {
 
     //新增部門
     @PostMapping
-    public Result add(@RequestBody Dept dept){
+    public Result save(@RequestBody Dept dept){
 //        System.out.println("新增部門: " + dept);
         log.info("新增部門: {}", dept);
-        deptService.add(dept);
+        deptService.save(dept);
         return Result.success();
     }
 

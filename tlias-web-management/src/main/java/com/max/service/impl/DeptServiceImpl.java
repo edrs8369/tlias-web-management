@@ -27,7 +27,7 @@ public class DeptServiceImpl implements DeptService {
     }
 
     @Override
-    public void add(Dept dept) {
+    public void save(Dept dept) {
 
         //1.補全基礎屬性 - createTime updateTime
         dept.setCreateTime(LocalDateTime.now());

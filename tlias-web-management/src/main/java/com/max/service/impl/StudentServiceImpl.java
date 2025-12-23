@@ -53,7 +53,7 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public void add(Student student) {
+    public void save(Student student) {
 
         student.setCreateTime(LocalDateTime.now());
         student.setUpdateTime(LocalDateTime.now());

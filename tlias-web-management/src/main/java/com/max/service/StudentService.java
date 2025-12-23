@@ -16,7 +16,7 @@ public interface StudentService {
     void delete(List<Integer> ids);
 
     //新增學生
-    void add(Student student);
+    void save(Student student);
 
     //根據id查詢學生
     Student getInfo(Integer id);
